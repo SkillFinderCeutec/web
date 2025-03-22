@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function cargarMensajes() {
         try {
-            const res = await fetch("http://localhost:3000/api/foro/mensajes", { credentials: "include" });
+            const res = await fetch("https://backend-zsvt.onrender.com/api/foro/mensajes", { credentials: "include" });
             const data = await res.json();
             contenedor.innerHTML = "";
 
