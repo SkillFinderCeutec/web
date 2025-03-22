@@ -1,0 +1,169 @@
+body {
+    background-color: #E5E5E5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #14213D;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar .nav-link {
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.sidebar .nav-link.active, 
+.sidebar .nav-link:hover {
+    background-color: #FCA311;
+    color: white;
+}
+
+.content {
+    margin-left: 240px;
+    padding: 20px;
+    flex: 1;
+    padding-bottom: 100px;
+}
+
+.footer {
+    background-color: #14213D;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.frase-box {
+    background: linear-gradient(135deg, #14213D, #FCA311);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 0;
+}
+
+.frase-box p {
+    font-size: 1.4rem;
+    font-style: italic;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.frase-box span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.search-container {
+    width: 340px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 30px;
+}
+
+.custom-search {
+    border-radius: 30px;
+    border: 2px solid #FCA311;
+    padding: 10px 15px;
+    width: 100%;
+    transition: box-shadow 0.3s;
+}
+
+.custom-search:focus {
+    outline: none;
+    border-color: #14213D;
+    box-shadow: 0 0 10px rgba(20,33,61,0.3);
+}
+
+.search-invite {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    margin-left: 8px;
+}
+
+.biblioteca-card {
+    border-radius: 15px;
+}
+
+.nav-tabs .nav-link {
+    color: #14213D;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #FCA311;
+    color: white;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: space-evenly; 
+    width: 100%;
+}
+
+.nav-tabs .nav-item {
+    flex-grow: 1; 
+    text-align: center; 
+}
+
+.nav-tabs .nav-link {
+    width: 100%; 
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.tab-content {
+    min-height: 300px;
+    border-radius: 0 0 15px 15px;
+    background-color: white;
+    padding: 40px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+}
+
+
+.content .row {
+    padding-left: 12px; 
+    padding-right: 12px; 
+}
+
+
+.interest-badge {
+    background-color: #FCA311;
+    color: #fff;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin: 5px;
+    display: inline-block;
+}

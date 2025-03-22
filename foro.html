@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro | SkillFinder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="foro.css">
+</head>
+<body>
+
+<div class="sidebar text-center">
+    <img src="isotipo.png" alt="SkillFinder Logo" width="80" class="mb-4">
+    <nav class="nav flex-column">
+        <a class="nav-link" href="perfil.html">Perfil</a>
+        <a class="nav-link" href="biblioteca.html">Biblioteca</a>
+        <a class="nav-link active" href="#">Foro</a>
+        <a class="nav-link" href="logout.html">Cerrar sesión</a>
+    </nav>
+</div>
+
+<div class="content">
+    <div class="top-bar d-flex justify-content-between align-items-center mb-4">
+        <div class="search-invite alert alert-warning flex-grow-1 mx-3">
+            🚀 ¡Explora y descubre cursos increíbles!
+            <span class="arrow">➜</span>
+        </div>
+        <div class="search-container">
+            <input type="text" class="form-control custom-search" placeholder="🔍 Busca tu curso ideal...">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="chat-box card shadow">
+                <div class="chat-header">
+                    <h5>Foro de Discusión</h5>
+                </div>
+                <div class="chat-messages" id="chat-mensajes"></div>
+                <div class="chat-input d-flex">
+                    <input type="text" id="mensajeInput" class="form-control" placeholder="Escribe un mensaje...">
+                    <button class="btn btn-warning ms-2" id="enviarMensaje">Enviar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="frase-box shadow-lg frase-motivacional">
+                <p id="frase"></p>
+                <span class="author" id="autor"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer fixed-bottom">
+    SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
+</div>
+
+<!-- JS funcional -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("mensajeInput");
+    const boton = document.getElementById("enviarMensaje");
+    const contenedor = document.getElementById("chat-mensajes");
+
+    async function cargarMensajes() {
+        try {
+            const res = await fetch("http://localhost:3000/api/foro/mensajes", { credentials: "include" });
+            const data = await res.json();
+            contenedor.innerHTML = "";
+
+            data.mensajes.forEach(m => {
+                const div = document.createElement("div");
+                div.classList.add("mensaje");
+                if (m.propietario) div.classList.add("mensaje-propio");
+
+                div.innerHTML = `
+                    <strong>${m.user}</strong>
+                    <p>${m.mensaje}</p>
+                    <span class="text-muted small">${new Date(m.fecha).toLocaleString()}</span>
+                `;
+                contenedor.appendChild(div);
+            });
+
+            contenedor.scrollTop = contenedor.scrollHeight;
+        } catch (error) {
+            console.error("❌ Error al cargar mensajes:", error);
+        }
+    }
+
+    async function enviarMensaje() {
+        const texto = input.value.trim();
+        if (texto === "") return;
+
+        try {
+            const res = await fetch("http://localhost:3000/api/foro/mensajes", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mensaje: texto })
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                input.value = "";
+                cargarMensajes();
+            } else {
+                alert("No se pudo enviar el mensaje");
+            }
+        } catch (error) {
+            console.error("❌ Error al enviar mensaje:", error);
+        }
+    }
+
+    boton.addEventListener("click", enviarMensaje);
+    input.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            enviarMensaje();
+        }
+    });
+
+    cargarMensajes();
+});
+</script>
+
+<script>
+// Frases motivacionales
+const frases = [
+    { frase: "Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.", autor: "Mahatma Gandhi" },
+    { frase: "La educación es el arma más poderosa que puedes usar para cambiar el mundo.", autor: "Nelson Mandela" },
+    { frase: "El aprendizaje nunca agota la mente.", autor: "Leonardo da Vinci" },
+    { frase: "El conocimiento es poder.", autor: "Francis Bacon" },
+    { frase: "Nunca consideres el estudio como una obligación, sino como una oportunidad para entrar en el bello mundo del saber.", autor: "Albert Einstein" }
+];
+
+let indice = 0;
+const fraseElemento = document.getElementById("frase");
+const autorElemento = document.getElementById("autor");
+
+function cambiarFrase() {
+    fraseElemento.style.opacity = 0;
+    autorElemento.style.opacity = 0;
+
+    setTimeout(() => {
+        fraseElemento.textContent = `"${frases[indice].frase}"`;
+        autorElemento.textContent = `- ${frases[indice].autor}`;
+        fraseElemento.style.opacity = 1;
+        autorElemento.style.opacity = 1;
+        indice = (indice + 1) % frases.length;
+    }, 800);
+}
+cambiarFrase();
+setInterval(cambiarFrase, 8000);
+</script>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

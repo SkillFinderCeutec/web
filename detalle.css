@@ -1,0 +1,144 @@
+body {
+    background-color: #E5E5E5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #14213D;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar .nav-link {
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.sidebar .nav-link.active, 
+.sidebar .nav-link:hover {
+    background-color: #FCA311;
+    color: white;
+}
+
+.content {
+    margin-left: 240px;
+    padding: 20px;
+    flex: 1;
+    padding-bottom: 100px;
+}
+
+.footer {
+    background-color: #14213D;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Contenedor del curso */
+.course-details {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin: 0 auto;
+    max-width: 900px;
+    position: relative;
+}
+
+/* Botón atrás */
+.back-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1rem;
+}
+
+/* Imagen del curso */
+.course-image-placeholder {
+    background-color: #f0f0f0;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+/* Estilos del curso */
+.course-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #14213D;
+    margin-bottom: 15px;
+}
+
+.course-platform, .course-language, .course-price {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Botón de acceso */
+.btn-warning {
+    background-color: #FCA311;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-outline-primary, .btn-outline-success {
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.search-invite {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    margin-left: 8px;
+}
+
+.search-container {
+    width: 340px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 30px;
+}
+
+.custom-search {
+    border-radius: 30px;
+    border: 2px solid #FCA311;
+    padding: 10px 15px;
+    width: 100%;
+    transition: box-shadow 0.3s;
+}
+
+.custom-search:focus {
+    outline: none;
+    border-color: #14213D;
+    box-shadow: 0 0 10px rgba(20,33,61,0.3);
+}

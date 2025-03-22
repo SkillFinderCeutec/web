@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | SkillFinder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header position-relative">
+        <div class="d-flex align-items-center">
+            <img src="isotipo.png" alt="SkillFinder Logo" class="top-left-logo">
+            <span class="site-title">SkillFinder</span>
+        </div>
+        <div class="header-buttons">
+            <a href="home.html" class="btn btn-dark rounded-pill px-4">Inicio</a>
+        </div>
+    </div>
+
+    <!-- Formulario Inicio de Sesión -->
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="info-box shadow-lg">
+            <h2 class="mb-4">Inicia sesión en SkillFinder</h2>
+            
+            <form id="loginForm">
+                <div class="mb-3">
+                    <input type="text" id="usuario" class="form-control form-control-lg" placeholder="Usuario" required>
+                </div>
+                <div class="mb-4">
+                    <input type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" required>
+                </div>
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn cta-button">Iniciar Sesión</button>
+                </div>
+            </form>
+
+            <div class="mt-4 text-center">
+                <span>¿No tienes una cuenta?</span>
+                <a href="registro.html" class="text-decoration-none fw-bold" style="color:#FCA311;">Regístrate</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer mt-5">
+        SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
+    </div>
+
+    <!-- Script para enviar login -->
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const usuario = document.getElementById("usuario").value;
+            const password = document.getElementById("password").value;
+
+            const res = await fetch("http://localhost:3000/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ usuario, password })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                alert("✅ Inicio de sesión exitoso.");
+                window.location.href = "perfil.html"; // Puedes cambiar a donde redirigir
+            } else {
+                alert("❌ Error: " + data.message);
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

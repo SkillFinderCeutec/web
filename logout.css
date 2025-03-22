@@ -1,0 +1,111 @@
+body {
+    background-color: #E5E5E5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: opacity 1s ease-in-out; /* Animación de fade */
+}
+
+html {
+    overflow-y: scroll;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #14213D;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar .nav-link {
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.sidebar .nav-link.active, 
+.sidebar .nav-link:hover {
+    background-color: #FCA311;
+    color: white;
+}
+
+.content {
+    margin-left: 240px;
+    padding: 20px;
+    flex: 1;
+    padding-bottom: 100px;
+}
+
+.search-container {
+    width: 340px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 30px;
+}
+
+.custom-search {
+    border-radius: 30px;
+    border: 2px solid #FCA311;
+    padding: 10px 15px;
+    width: 100%;
+    transition: box-shadow 0.3s;
+}
+
+.custom-search:focus {
+    outline: none;
+    border-color: #14213D;
+    box-shadow: 0 0 10px rgba(20,33,61,0.3);
+}
+
+.search-invite {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    margin-left: 8px;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.logout-icon {
+    margin-top: -60px;
+    width: 250px;
+    opacity: 0.8;
+}
+
+.logout-container h2 {
+    color: #14213D;
+    font-weight: bold;
+}
+
+.logout-container p {
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.footer {
+    background-color: #14213D;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Animación fade-out al cerrar sesión */
+.fade-out {
+    opacity: 0;
+}

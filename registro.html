@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Intereses | SkillFinder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<div class="header position-relative">
+    <div class="d-flex align-items-center">
+        <img src="isotipo.png" alt="SkillFinder Logo" class="top-left-logo">
+        <span class="site-title">SkillFinder</span>
+    </div>
+    <div class="header-buttons">
+        <a href="home.html" class="btn btn-dark rounded-pill px-4">Inicio</a>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="info-box shadow-lg">
+        <h2 class="mb-4 text-center">Escoge tus áreas de interés</h2>
+        <form id="interesesForm">
+            <div class="row text-center">
+                <!-- Intereses con IDs válidos -->
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="admin"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="admin">Administración</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="economia"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="economia">Economía</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="tecno"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="tecno">Tecnología</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="foto"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="foto">Fotografía</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="cocina"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="cocina">Cocina</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="jardin"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="jardin">Jardinería</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="publicidad"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="publicidad">Publicidad</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="disgraf"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="disgraf">Diseño Gráfico</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="prog"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="prog">Programación</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="idiomas"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="idiomas">Idiomas</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="empren"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="empren">Emprendimiento</label></div>
+                <div class="col-md-4 my-2"><input type="checkbox" class="btn-check" id="marketing"><label class="btn btn-outline-warning rounded-pill px-4 py-2" for="marketing">Marketing</label></div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="button" onclick="irAFormulario()" class="btn cta-button">Siguiente</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="footer mt-5">
+    SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
+</div>
+
+<script>
+    const mapaIntereses = {
+        admin: 1, economia: 2, tecno: 3, foto: 4, cocina: 5, jardin: 6,
+        publicidad: 7, disgraf: 8, prog: 9, idiomas: 10, empren: 11, marketing: 12
+    };
+
+    function irAFormulario() {
+        const seleccionados = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(cb => mapaIntereses[cb.id])
+            .filter(Boolean);
+
+        if (seleccionados.length !== 3) {
+            alert("Selecciona exactamente 3 intereses.");
+            return;
+        }
+
+        localStorage.setItem("interesesSeleccionados", JSON.stringify(seleccionados));
+        window.location.href = "registro2.html";
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
