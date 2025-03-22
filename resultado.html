@@ -87,7 +87,7 @@
       const btnRecomendacion = document.getElementById("mostrarRecomendacion");
       btnRecomendacion.addEventListener("click", async () => {
         try {
-          const res = await fetch("http://localhost:3000/api/recomendaciones", {
+          const res = await fetch("https://backend-zsvt.onrender.com/api/recomendaciones", {
             credentials: "include"
           });
           const data = await res.json();
