@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 🔎 Buscar cursos desde el servidor
 async function buscarCursos(query) {
-    const url = `http://localhost:3000/buscar-cursos?q=${encodeURIComponent(query)}`;
+    const url = `https://backend-zsvt.onrender.com/buscar-cursos?q=${encodeURIComponent(query)}`;
 
     try {
         const res = await fetch(url);
@@ -111,7 +111,7 @@ async function aplicarFiltros() {
     console.log("🧪 Aplicando filtros:", filtros); // <--- Esta línea te mostrará en consola los filtros
 
     try {
-        const res = await fetch("http://localhost:3000/filtrar-cursos", {
+        const res = await fetch("https://backend-zsvt.onrender.com/filtrar-cursos", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(filtros)
