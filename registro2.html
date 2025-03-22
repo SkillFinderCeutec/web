@@ -61,7 +61,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
         return;
     }
 
-    const res = await fetch("http://localhost:3000/api/registro", {
+    const res = await fetch("https://backend-zsvt.onrender.co/api/registro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, email, password, intereses })
