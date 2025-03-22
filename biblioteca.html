@@ -85,7 +85,7 @@
     
         async function cargarCursos() {
             try {
-                const res = await fetch("http://localhost:3000/api/cursos", { credentials: "include" });
+                const res = await fetch("https://backend-zsvt.onrender.com/api/cursos", { credentials: "include" });
                 const data = await res.json();
     
                 if (!data.success) {
@@ -139,7 +139,7 @@
             if (!confirm("¿Quieres marcar este curso como finalizado?")) return;
     
             try {
-                const res = await fetch("http://localhost:3000/api/cursos/finalizar", {
+                const res = await fetch("https://backend-zsvt.onrender.com/api/cursos/finalizar", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
