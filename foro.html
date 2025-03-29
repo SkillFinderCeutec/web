@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (texto === "") return;
 
         try {
-            const res = await fetch("http://localhost:3000/api/foro/mensajes", {
+            const res = await fetch("https://backend-zsvt.onrender.com/api/foro/mensajes", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
