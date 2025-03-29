@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="resultado.css">
 </head>
 <body>
-
-  <!-- Sidebar -->
   <div class="sidebar text-center">
     <img src="isotipo.png" alt="SkillFinder Logo" width="80" class="mb-4">
     <nav class="nav flex-column">
@@ -19,20 +17,16 @@
     </nav>
   </div>
 
-  <!-- Contenido principal -->
   <div class="content">
-
-    <!-- Barra superior -->
     <div class="top-bar d-flex justify-content-between align-items-center mb-4">
       <div class="search-invite alert alert-warning flex-grow-1 mx-3">
-        🚀 ¡Explora y descubre cursos increíbles! <span class="arrow">➜</span>
+        🚀 ¡Explora y descubre cursos increíbles! <span class="arrow">➔</span>
       </div>
       <div class="search-container">
         <input type="text" class="form-control custom-search" placeholder="🔍 Busca tu curso ideal...">
       </div>
     </div>
 
-    <!-- Cuadro de recomendación -->
     <div class="recommendation-box shadow-sm d-flex align-items-center justify-content-between p-3">
       <div>
         <h5 class="mb-0">🎯 Recomendación SkillFinder</h5>
@@ -41,7 +35,6 @@
       <button class="btn btn-warning" id="mostrarRecomendacion">Sí</button>
     </div>
 
-    <!-- Filtros -->
     <div class="filters-box shadow-sm mt-4 p-3">
       <h5>🔍 Filtrar por:</h5>
       <div class="row g-3">
@@ -66,22 +59,18 @@
       </div>
     </div>
 
-    <!-- Resultados -->
     <div class="courses-box mt-4">
       <h5>📚 Cursos disponibles</h5>
       <div class="courses-container" id="cursosContainer">
         <p class="text-muted">Aquí aparecerán los cursos cuando realices una búsqueda o muestres recomendaciones.</p>
       </div>
     </div>
-
   </div>
 
-  <!-- Footer -->
   <div class="footer text-center py-2 fixed-bottom bg-dark text-light">
     SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
   </div>
 
-  <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const btnRecomendacion = document.getElementById("mostrarRecomendacion");
@@ -92,7 +81,7 @@
           });
           const data = await res.json();
           if (data.success && data.cursos?.length > 0) {
-            mostrarCursos(data.cursos, true); // Cursos desde GPT
+            mostrarCursos(data.cursos, true);
           } else {
             document.getElementById("cursosContainer").innerHTML = `<p class="text-muted">No se encontraron recomendaciones.</p>`;
           }
@@ -116,6 +105,5 @@
 
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
