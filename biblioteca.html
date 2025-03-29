@@ -1,176 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Biblioteca | SkillFinder</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="biblioteca.css">
+  <meta charset="UTF-8">
+  <title>Biblioteca | SkillFinder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="biblioteca.css">
 </head>
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar text-center">
-    <img src="isotipo.png" alt="SkillFinder Logo" width="80" class="mb-4">
-    <nav class="nav flex-column">
-        <a class="nav-link" href="perfil.html">Perfil</a>
-        <a class="nav-link active" href="#">Biblioteca</a>
-        <a class="nav-link" href="foro.html">Foro</a>
-        <a class="nav-link" href="logout.html">Cerrar sesión</a>
-    </nav>
+  <img src="isotipo.png" alt="SkillFinder Logo" width="80" class="mb-4">
+  <nav class="nav flex-column">
+    <a class="nav-link" href="perfil.html">Perfil</a>
+    <a class="nav-link active" href="#">Biblioteca</a>
+    <a class="nav-link" href="foro.html">Foro</a>
+    <a class="nav-link" href="logout.html">Cerrar sesión</a>
+  </nav>
 </div>
 
+<!-- Contenido principal -->
 <div class="content">
-    <div class="top-bar d-flex justify-content-between align-items-center mb-4">
-        <div class="search-invite alert alert-warning flex-grow-1 mx-3">
-            🚀 ¡Explora y descubre cursos increíbles! 
-            <span class="arrow">➜</span>
+  <div class="top-bar d-flex justify-content-between align-items-center mb-4">
+    <div class="search-invite alert alert-warning flex-grow-1 mx-3">
+      🚀 ¡Explora y descubre cursos increíbles! <span class="arrow">➜</span>
+    </div>
+    <div class="search-container">
+      <input type="text" class="form-control custom-search" placeholder="🔍 Busca tu curso ideal...">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card shadow biblioteca-card">
+        <ul class="nav nav-tabs justify-content-center">
+          <li class="nav-item">
+            <button class="nav-link active" id="guardados-tab">Cursos Guardados</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="finalizados-tab">Cursos Finalizados</button>
+          </li>
+        </ul>
+
+        <div class="tab-content p-4">
+          <div class="tab-pane fade show active" id="guardados">
+            <div id="lista-guardados" class="lista-cursos"></div>
+          </div>
+          <div class="tab-pane fade" id="finalizados">
+            <div id="lista-finalizados" class="lista-cursos"></div>
+          </div>
         </div>
-        <div class="search-container">
-            <input type="text" class="form-control custom-search" placeholder="🔍 Busca tu curso ideal...">
-        </div>
+      </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card shadow biblioteca-card">
-                <ul class="nav nav-tabs justify-content-center">
-                    <li class="nav-item">
-                        <button class="nav-link active" id="guardados-tab">Cursos Guardados</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="finalizados-tab">Cursos Finalizados</button>
-                    </li>
-                </ul>
-
-                <div class="tab-content p-4">
-                    <div class="tab-pane fade show active" id="guardados">
-                        <div id="lista-guardados" class="lista-cursos"></div>
-                    </div>
-                    <div class="tab-pane fade" id="finalizados">
-                        <div id="lista-finalizados" class="lista-cursos"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="frase-box shadow-lg frase-motivacional">
-                <p id="frase"></p>
-                <span class="author" id="autor"></span>
-            </div>
-        </div>
+    <div class="col-md-4">
+      <div class="frase-box shadow-lg frase-motivacional">
+        <p id="frase"></p>
+        <span class="author" id="autor"></span>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="footer fixed-bottom">
-    SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
+  SkillFinder - Aprende sin límites | © 2025 Todos los derechos reservados.
 </div>
 
 <!-- Scripts -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Tabs
-        document.getElementById("guardados-tab").addEventListener("click", function () {
-            mostrarTab("guardados", this);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("guardados-tab").addEventListener("click", () => mostrarTab("guardados", "guardados-tab"));
+    document.getElementById("finalizados-tab").addEventListener("click", () => mostrarTab("finalizados", "finalizados-tab"));
+
+    function mostrarTab(tabId, btnId) {
+      document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('show', 'active'));
+      document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabId).classList.add('show', 'active');
+      document.getElementById(btnId).classList.add('active');
+    }
+
+    async function cargarCursos() {
+      try {
+        const res = await fetch("https://backend-zsvt.onrender.com/api/cursos", { credentials: "include" });
+        const data = await res.json();
+
+        if (!data.success) {
+          mostrarMensaje("lista-guardados", data.message);
+          mostrarMensaje("lista-finalizados", data.message);
+          return;
+        }
+
+        const cursos = data.cursos || [];
+        const guardados = cursos.filter(c => c.estado === "guardado");
+        const finalizados = cursos.filter(c => c.estado === "finalizado");
+
+        renderizarCursos(guardados, "lista-guardados", "No tienes cursos guardados aún.");
+        renderizarCursos(finalizados, "lista-finalizados", "No tienes cursos finalizados aún.");
+      } catch (error) {
+        console.error("❌ Error al cargar cursos:", error);
+      }
+    }
+
+    function mostrarMensaje(id, mensaje) {
+      document.getElementById(id).innerHTML = `<p class="text-muted">${mensaje}</p>`;
+    }
+
+    function renderizarCursos(cursos, contenedorId, mensajeVacio) {
+      const contenedor = document.getElementById(contenedorId);
+      contenedor.innerHTML = "";
+
+      if (cursos.length === 0) {
+        contenedor.innerHTML = `<p class="text-muted">${mensajeVacio}</p>`;
+        return;
+      }
+
+      cursos.forEach(curso => {
+        const div = document.createElement("div");
+        div.className = "card mb-3 p-3 shadow-sm";
+
+        let botones = `<a href="${curso.url}" target="_blank" class="btn btn-primary btn-sm me-2">Ver Curso</a>`;
+
+        if (curso.estado === "guardado") {
+          botones += `<button class="btn btn-success btn-sm" onclick="finalizarCurso('${curso.url}')">✅ Finalizar</button>`;
+        }
+
+        div.innerHTML = `
+          <h5>${curso.name}</h5>
+          <p class="mb-1"><strong>Plataforma:</strong> ${curso.plataforma}</p>
+          ${botones}
+        `;
+
+        contenedor.appendChild(div);
+      });
+    }
+
+    window.finalizarCurso = async function (url) {
+      if (!confirm("¿Quieres marcar este curso como finalizado?")) return;
+      try {
+        const res = await fetch("https://backend-zsvt.onrender.com/api/cursos/finalizar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ url })
         });
-        document.getElementById("finalizados-tab").addEventListener("click", function () {
-            mostrarTab("finalizados", this);
-        });
-    
-        function mostrarTab(tabId, elemento) {
-            document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('show', 'active'));
-            document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('show', 'active');
-            elemento.classList.add('active');
+
+        const data = await res.json();
+        if (data.success) {
+          alert("✅ Curso marcado como finalizado.");
+          cargarCursos();
+        } else {
+          alert("❌ No se pudo marcar como finalizado.");
         }
-    
-        async function cargarCursos() {
-            try {
-                const res = await fetch("https://backend-zsvt.onrender.com/api/cursos", { credentials: "include" });
-                const data = await res.json();
-    
-                if (!data.success) {
-                    document.getElementById("lista-guardados").innerHTML = `<p class="text-muted">${data.message}</p>`;
-                    document.getElementById("lista-finalizados").innerHTML = `<p class="text-muted">${data.message}</p>`;
-                    return;
-                }
-    
-                const cursos = data.cursos || [];
-                const guardados = cursos.filter(c => c.estado === "guardado");
-                const finalizados = cursos.filter(c => c.estado === "finalizado");
-    
-                renderizarCursos(guardados, "lista-guardados", "No tienes cursos guardados aún.");
-                renderizarCursos(finalizados, "lista-finalizados", "No tienes cursos finalizados aún.");
-            } catch (error) {
-                console.error("❌ Error al cargar cursos:", error);
-            }
-        }
-    
-        function renderizarCursos(cursos, contenedorId, mensajeVacio) {
-            const contenedor = document.getElementById(contenedorId);
-            contenedor.innerHTML = "";
-    
-            if (cursos.length === 0) {
-                contenedor.innerHTML = `<p class="text-muted">${mensajeVacio}</p>`;
-                return;
-            }
-    
-            cursos.forEach(curso => {
-                const div = document.createElement("div");
-                div.className = "card mb-3 p-3 shadow-sm";
-    
-                let botones = `<a href="${curso.url}" target="_blank" class="btn btn-primary btn-sm me-2">Ver Curso</a>`;
-    
-                if (curso.estado === "guardado") {
-                    botones += `<button class="btn btn-success btn-sm" onclick="finalizarCurso('${curso.url}')">✅ Finalizar</button>`;
-                }
-    
-                div.innerHTML = `
-                    <h5>${curso.name}</h5>
-                    <p class="mb-1"><strong>Plataforma:</strong> ${curso.plataforma}</p>
-                    ${botones}
-                `;
-    
-                contenedor.appendChild(div);
-            });
-        }
-    
-        // ✅ Ahora sí, finalizarCurso tiene acceso a cargarCursos
-        window.finalizarCurso = async function (url) {
-            if (!confirm("¿Quieres marcar este curso como finalizado?")) return;
-    
-            try {
-                const res = await fetch("https://backend-zsvt.onrender.com/api/cursos/finalizar", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    credentials: "include",
-                    body: JSON.stringify({ url })
-                });
-    
-                const data = await res.json();
-                if (data.success) {
-                    alert("✅ Curso marcado como finalizado.");
-                    cargarCursos();
-                } else {
-                    alert("❌ No se pudo marcar como finalizado.");
-                }
-            } catch (error) {
-                console.error("❌ Error al finalizar curso:", error);
-                alert("Error al marcar curso como finalizado.");
-            }
-        }
-    
-        // Cargar cursos al iniciar
-        cargarCursos();
-    });
-    </script>
+      } catch (error) {
+        console.error("❌ Error al finalizar curso:", error);
+        alert("Error al marcar curso como finalizado.");
+      }
+    };
+
+    cargarCursos();
+  });
+</script>
 
 <script>
 const frases = [
-    { frase: "Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.", autor: "Mahatma Gandhi" },
-    { frase: "La educación es el arma más poderosa que puedes usar para cambiar el mundo.", autor: "Nelson Mandela" },
-    { frase: "El aprendizaje nunca agota la mente.", autor: "Leonardo da Vinci" },
-    { frase: "El conocimiento es poder.", autor: "Francis Bacon" },
-    { frase: "Nunca consideres el estudio como una obligación, sino como una oportunidad para entrar en el bello mundo del saber.", autor: "Albert Einstein" }
+  { frase: "Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.", autor: "Mahatma Gandhi" },
+  { frase: "La educación es el arma más poderosa que puedes usar para cambiar el mundo.", autor: "Nelson Mandela" },
+  { frase: "El aprendizaje nunca agota la mente.", autor: "Leonardo da Vinci" },
+  { frase: "El conocimiento es poder.", autor: "Francis Bacon" },
+  { frase: "Nunca consideres el estudio como una obligación, sino como una oportunidad para entrar en el bello mundo del saber.", autor: "Albert Einstein" }
 ];
 
 let indice = 0;
@@ -178,16 +175,16 @@ const fraseElemento = document.getElementById("frase");
 const autorElemento = document.getElementById("autor");
 
 function cambiarFrase() {
-    fraseElemento.style.opacity = 0;
-    autorElemento.style.opacity = 0;
+  fraseElemento.style.opacity = 0;
+  autorElemento.style.opacity = 0;
 
-    setTimeout(() => {
-        fraseElemento.textContent = `"${frases[indice].frase}"`;
-        autorElemento.textContent = `- ${frases[indice].autor}`;
-        fraseElemento.style.opacity = 1;
-        autorElemento.style.opacity = 1;
-        indice = (indice + 1) % frases.length;
-    }, 800);
+  setTimeout(() => {
+    fraseElemento.textContent = `"${frases[indice].frase}"`;
+    autorElemento.textContent = `- ${frases[indice].autor}`;
+    fraseElemento.style.opacity = 1;
+    autorElemento.style.opacity = 1;
+    indice = (indice + 1) % frases.length;
+  }, 800);
 }
 cambiarFrase();
 setInterval(cambiarFrase, 8000);
