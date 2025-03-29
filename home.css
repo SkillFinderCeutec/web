@@ -157,3 +157,115 @@ body {
     box-shadow: 0px 5px 15px rgba(252, 163, 17, 0.4);
 }
 
+/* Por defecto: ocultar el botón */
+.menu-toggle {
+    display: none;
+  }
+  
+
+/* Responsive */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+    
+    .site-title {
+        font-size: 20px;
+    }
+    
+    .header-action {
+        font-size: 12px;
+    }
+
+    .header-arrow{
+        width: 12px;
+    }
+    
+    /* Mostrar botón hamburguesa solo en responsive */
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 26px;
+        cursor: pointer;
+    }
+    
+    .header-buttons {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .header-buttons.show {
+        display: flex;
+    }
+  
+    /* Imagen principal */
+    .main-image {
+      max-height: 250px;
+    }
+  
+    /* Info Box */
+    .info-box {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+
+    .info-box h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Botones de intereses */
+    .btn-outline-warning {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .cta-button {
+        padding: 8px 18px;
+        font-size: 15px;
+    }
+  
+    /* Tarjetas */
+    .feature-card {
+      max-width: 90%;
+      min-height: 150px;
+      margin: 15px auto;
+      padding: 20px;
+    }
+  
+    .feature-icon {
+      width: 60px;
+      max-height: 60px;
+    }
+  
+    /* Hero section */
+    .hero-image {
+      max-height: 250px;
+    }
+  
+    .hero-text {
+      padding: 15px;
+      width: 90%;
+      font-size: 16px;
+    }
+  
+    .hero-text h1 {
+      font-size: 18px;
+    }
+  
+    /* Footer */
+    .footer {
+      padding: 25px 10px;
+      font-size: 14px;
+    }
+  }
+  
