@@ -41,6 +41,7 @@ html {
 
 .footer {
     background-color: #14213D;
+    position: relative;
     color: white;
     padding: 15px;
     text-align: center;
@@ -109,3 +110,87 @@ html {
     font-size: 1.5rem;
     margin-left: 8px;
 }
+
+@media (max-width: 950px) {
+    .sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+      padding: 15px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #14213D;
+    }
+  
+    .sidebar img {
+      margin-bottom: 10px;
+    }
+  
+    .sidebar .nav {
+      flex-direction: row !important;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+  
+    .sidebar .nav-link {
+      margin-bottom: 0;
+    }
+  
+    .content {
+      margin-left: 0;
+      padding: 15px;
+    }
+  
+    .recommendation-box,
+    .filters-box,
+    .courses-box {
+      padding: 15px;
+    }
+  
+    .footer {
+      padding: 20px 10px;
+      font-size: 14px;
+      position: relative;
+    }
+  }
+  
+  @media (max-width: 580px) {
+    .top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 15px;
+    }
+  
+    .search-invite {
+      text-align: center;
+      font-size: 1rem;
+    }
+  
+    .search-container {
+       width: 90%;
+       margin: 0 auto;
+       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+       border-radius: 30px;
+    }
+      
+    .custom-search {
+       width: 100%;
+    }      
+  
+    .recommendation-box h5,
+    .filters-box h5,
+    .courses-box h5 {
+      font-size: 1rem;
+    }
+  
+    .custom-search {
+      width: 100%;
+    }
+  
+    .sidebar .nav-link {
+      font-size: 13px;
+    }
+  }
+  
